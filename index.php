@@ -2,7 +2,15 @@
 
 require_once('connexionBD.php');
 
+if (isset($_POST['description']) && isset($_POST['priorite'])) {
+    $description = trim(htmlspecialchars($_POST['description']));
+    $priorite = trim(htmlspecialchars($_POST['priorite']));
 
+    if (!empty($description) && !empty($priorite)) {
+        $requete = $bd->prepare("INSERT INTO tache(description, id_priorite) VALUES(?, ?)");
+        $requete->execute([$description, $priorite]);
+    }
+}
 
 $requeteTaches = $bd->query("
     SELECT tache.id, tache.description, pri.id AS id_priorite, pri.description AS description_priorite
@@ -48,9 +56,9 @@ $requeteTaches = $bd->query("
             <tfoot>
                 <tr>
                     <th>Ajouter une tâche:</th>
-                    <td><input style="margin-right: 2px;" type="text" name="description"></td>
+                    <td><input style="margin-right: 2px;" type="text" name="description" required></td>
                     <td>
-                        <select name="priorite">
+                        <select name="priorite" required>
                             <option disabled selected></option>
                             <?php
                                 $requetePriorites = $bd->query("SELECT * FROM priorite ORDER BY id");
