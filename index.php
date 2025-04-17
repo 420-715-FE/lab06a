@@ -12,6 +12,12 @@ if (isset($_POST['description']) && isset($_POST['priorite'])) {
     }
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $requete = $bd->prepare("DELETE FROM tache WHERE id = ?");
+    $requete->execute([$id]);
+}
+
 $requeteTaches = $bd->query("
     SELECT tache.id, tache.description, pri.id AS id_priorite, pri.description AS description_priorite
     FROM tache
@@ -45,7 +51,7 @@ $requeteTaches = $bd->query("
 
                 foreach ($requeteTaches as $tache) {
                     echo "<tr>";
-                    echo '<td></td>';
+                    echo "<td style=\"text-align:center;\"><a href=\"?action=supprimer&id={$tache['id']}\">❌ </a></td>";
                     echo "<td>{$tache['description']}</td>";
                     echo "<td>{$tache['description_priorite']}</td>";
                     echo "</tr>";
