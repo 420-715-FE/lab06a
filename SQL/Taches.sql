@@ -24,11 +24,9 @@ CREATE TABLE tache (
 INSERT INTO tache (description, id_priorite) VALUES
 ('Comprendre comment utiliser PDO', 2),
 ('Lire l''énoncé du laboratoire', 2),
-('Écrire le code de la page index', 3),
-('Écrire le code de la liste', 3),
-('Écrire le code de la page afficher', 3),
-('Écrire le code de la page de modification', 3),
-('Écrire le code de la page d''ajout', 3),
-('Écrire le code de suppression', 3),
+('Créer la base de données', 2),
+('Écrire le code qui affiche la liste', 3),
+('Écrire le code permettant de supprimer une tâche', 3),
+('Écrire le code permettant d''ajouter une tâche', 3),
 ('Nourrir le chat', 1);
 
