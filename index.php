@@ -21,28 +21,50 @@ $requeteTaches = $bd->query("
 </head>
 <body>
     <h1>Liste de tâches</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Complétée</th>
-                <th>Description</th>
-                <th>Priorité</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
+    <form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Complétée</th>
+                    <th>Description</th>
+                    <th>Priorité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 
-            foreach ($requeteTaches as $tache) {
-                $checked = $tache['completee'] ? 'checked' : '';
-                echo "<tr>";
-                echo "<td><input type='checkbox' $checked></td>";
-                echo "<td>{$tache['description']}</td>";
-                echo "<td>{$tache['description_priorite']}</td>";
-                echo "</tr>";
-            }
+                foreach ($requeteTaches as $tache) {
+                    $checked = $tache['completee'] ? 'checked' : '';
+                    echo "<tr>";
+                    echo "<td><input type='checkbox' name='completee[{$tache['id']}]' $checked></td>";
+                    echo "<td>{$tache['description']}</td>";
+                    echo "<td>{$tache['description_priorite']}</td>";
+                    echo "</tr>";
+                }
 
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Ajouter une tâche:</th>
+                    <td><input type="text" name="description"></td>
+                    <td>
+                        <select name="priorite">
+                            <option disabled selected></option>
+                            <?php
+                                $requetePriorites = $bd->query("SELECT * FROM priorite ORDER BY id");
+                                foreach ($requetePriorites as $priorite) {
+                                    echo "<option value='{$priorite['id']}'>{$priorite['description']}</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <p>
+            <input type="submit" value="Sauvegarder les modifications" />
+        </p>
+    </form>
 </body>
 </html>
