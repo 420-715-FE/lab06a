@@ -8,7 +8,7 @@ Les informations ne sont donc pas critiques.
 */
 $infosBD = [
     'hote' => 'localhost',
-    'nomBD' => 'contacts',
+    'nomBD' => 'taches',
     'nomUtilisateur' => 'root',
     'motDePasse' => ''
 ];
