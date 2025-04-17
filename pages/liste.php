@@ -39,6 +39,8 @@ function body($bd) {
 
         ?>
     </ul>
+
+    <p><a href="?page=ajouter">Ajouter un contact</a></p>
     
     <?php
 }
