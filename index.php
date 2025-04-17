@@ -2,8 +2,10 @@
 
 require_once('connexionBD.php');
 
+
+
 $requeteTaches = $bd->query("
-    SELECT tache.id, tache.description, tache.completee, pri.id AS id_priorite, pri.description AS description_priorite
+    SELECT tache.id, tache.description, pri.id AS id_priorite, pri.description AS description_priorite
     FROM tache
     JOIN priorite pri ON tache.id_priorite = pri.id
     ORDER BY tache.id_priorite, tache.description
@@ -21,11 +23,11 @@ $requeteTaches = $bd->query("
 </head>
 <body>
     <h1>Liste de tâches</h1>
-    <form>
+    <form method="POST">
         <table>
             <thead>
                 <tr>
-                    <th>Complétée</th>
+                    <th>Action</th>
                     <th>Description</th>
                     <th>Priorité</th>
                 </tr>
@@ -34,9 +36,8 @@ $requeteTaches = $bd->query("
                 <?php
 
                 foreach ($requeteTaches as $tache) {
-                    $checked = $tache['completee'] ? 'checked' : '';
                     echo "<tr>";
-                    echo "<td><input type='checkbox' name='completee[{$tache['id']}]' $checked></td>";
+                    echo '<td></td>';
                     echo "<td>{$tache['description']}</td>";
                     echo "<td>{$tache['description_priorite']}</td>";
                     echo "</tr>";
@@ -47,7 +48,7 @@ $requeteTaches = $bd->query("
             <tfoot>
                 <tr>
                     <th>Ajouter une tâche:</th>
-                    <td><input type="text" name="description"></td>
+                    <td><input style="margin-right: 2px;" type="text" name="description"></td>
                     <td>
                         <select name="priorite">
                             <option disabled selected></option>
@@ -60,11 +61,13 @@ $requeteTaches = $bd->query("
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="submit" value="Soumettre">
+                    </td>
+                </tr>
             </tfoot>
         </table>
-        <p>
-            <input type="submit" value="Sauvegarder les modifications" />
-        </p>
     </form>
 </body>
 </html>
